@@ -1,20 +1,258 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flypesa Sports Real</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flypesa Sports Real</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f5f7;
+  color: #17202a;
+}
+
+header {
+  background: #071d2b;
+  color: white;
+  padding: 18px;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.demo {
+  font-size: 12px;
+  color: #ffd166;
+  margin-top: 5px;
+}
+
+.balance {
+  margin-top: 15px;
+  background: #12384b;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+nav {
+  display: flex;
+  overflow-x: auto;
+  background: white;
+  padding: 12px;
+  gap: 10px;
+}
+
+nav button {
+  border: 0;
+  padding: 10px 15px;
+  border-radius: 20px;
+  background: #e8edf0;
+}
+
+nav button.active {
+  background: #0b7a53;
+  color: white;
+}
+
+.container {
+  padding: 15px;
+  max-width: 700px;
+  margin: auto;
+}
+
+.section-title {
+  margin: 18px 0 10px;
+}
+
+.match {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px #00000012;
+}
+
+.league {
+  font-size: 12px;
+  color: #68737d;
+  margin-bottom: 8px;
+}
+
+.teams {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.odds {
+  display: flex;
+  gap: 8px;
+}
+
+.odds button {
+  flex: 1;
+  border: 0;
+  padding: 12px 5px;
+  border-radius: 8px;
+  background: #edf2f4;
+  cursor: pointer;
+}
+
+.odds button:hover {
+  background: #dce7eb;
+}
+
+.aviator {
+  background: linear-gradient(135deg, #17104a, #35156d);
+  color: white;
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.multiplier {
+  font-size: 42px;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.play {
+  width: 100%;
+  border: 0;
+  padding: 14px;
+  border-radius: 9px;
+  background: #ffb703;
+  font-weight: bold;
+}
+
+.slip {
+  background: white;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.slip button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 13px;
+  border: 0;
+  border-radius: 8px;
+  background: #0b7a53;
+  color: white;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #69757d;
+  font-size: 12px;
+}
+</style>
 </head>
+
 <body>
-  <h1>Flypesa Sports</h1>
-  <p>Sports Betting Real</p>
 
-  <h2>Today's Matches</h2>
+<header>
+  <div class="logo">✈ Flypesa Sports</div>
+  <div class="demo">Real MODE — real money</div>
 
-  <button>Team A — 1.80</button>
-  <button>Draw — 3.20</button>
-  <button>Team B — 2.10</button>
+  <div class="balance">
+    Real Balance: <strong>KSh 10,000.00</strong>
+  </div>
+</header>
 
-  <p>Real only — real money or withdrawals.</p>
+<nav>
+  <button class="active">Football</button>
+  <button>Basketball</button>
+  <button>Tennis</button>
+  <button>Aviator</button>
+</nav>
+
+<div class="container">
+
+  <h2 class="section-title">🔥 Live & Upcoming</h2>
+
+  <div class="match">
+    <div class="league">Premier Real League</div>
+    <div class="teams">Blue Stars vs Red Lions</div>
+
+    <div class="odds">
+      <button onclick="selectBet('Blue Stars', '1.80')">1 — 1.80</button>
+      <button onclick="selectBet('Draw', '3.20')">X — 3.20</button>
+      <button onclick="selectBet('Red Lions', '2.10')">2 — 2.10</button>
+    </div>
+  </div>
+
+  <div class="match">
+    <div class="league">International Real Cup</div>
+    <div class="teams">City FC vs United FC</div>
+
+    <div class="odds">
+      <button onclick="selectBet('City FC', '1.65')">1 — 1.65</button>
+      <button onclick="selectBet('Draw', '3.40')">X — 3.40</button>
+      <button onclick="selectBet('United FC', '2.35')">2 — 2.35</button>
+    </div>
+  </div>
+
+  <div class="aviator">
+    <h2>🚀 Aviator Real</h2>
+    <p>Real mode only</p>
+
+    <div class="multiplier" id="multiplier">1.00x</div>
+
+    <button class="play" onclick="startAviator()">
+      START Real ROUND
+    </button>
+  </div>
+
+  <div class="slip">
+    <h2>🎟️ Bet Slip</h2>
+    <p id="selection">No selection yet.</p>
+
+    <button onclick="clearBet()">Clear Selection</button>
+  </div>
+
+</div>
+
+<footer>
+  Flypesa Sports Real • real-money gambling • For plaing purposes only
+</footer>
+
+<script>
+function selectBet(team, odds) {
+  document.getElementById("selection").innerHTML =
+    "<strong>" + team + "</strong> selected at <strong>" + odds + "</strong> odds.";
+}
+
+function clearBet() {
+  document.getElementById("selection").innerHTML =
+    "No selection yet.";
+}
+
+function startAviator() {
+  let multiplier = 1.00;
+  const display = document.getElementById("multiplier");
+
+  const timer = setInterval(function() {
+    multiplier += 0.05;
+    display.textContent = multiplier.toFixed(2) + "x";
+
+    if (multiplier >= 3.00) {
+      clearInterval(timer);
+      display.textContent = "CRASH!";
+    }
+  }, 150);
+}
+</script>
+
 </body>
 </html>
